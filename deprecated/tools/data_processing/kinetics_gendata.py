@@ -9,6 +9,7 @@ from numpy.lib.format import open_memmap
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 from mmskeleton.deprecated.datasets.kinetics_feeder import KineticsFeeder
+# from ../mmskeleton/deprecated/datasets/kinetics_feeder2 import KineticsFeeder2
 toolbar_width = 30
 
 
@@ -41,7 +42,8 @@ def gendata(
                             label_path=label_path,
                             num_person_in=num_person_in,
                             num_person_out=num_person_out,
-                            window_size=max_frame)
+                            window_size=max_frame,
+                            debug=True)
 
     sample_name = feeder.sample_name
     sample_label = []

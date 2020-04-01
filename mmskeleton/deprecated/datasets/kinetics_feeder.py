@@ -59,7 +59,7 @@ class KineticsFeeder(torch.utils.data.Dataset):
         self.sample_name = os.listdir(self.data_path)
 
         if self.debug:
-            self.sample_name = self.sample_name[0:2]
+            self.sample_name = self.sample_name[0:1000]
 
         # load label
         label_path = self.label_path

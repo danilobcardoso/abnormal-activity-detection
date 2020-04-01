@@ -28,8 +28,8 @@ processor_cfg:
     type: "deprecated.datasets.skeleton_feeder.SkeletonFeeder"
     data_path: ./data/Kinetics/kinetics-skeleton/val_data.npy
     label_path: ./data/Kinetics/kinetics-skeleton/val_label.pkl
-    # debug: true
+    debug: true
 
   # dataloader setting
-  batch_size: 256
-  gpus: 4
+  batch_size: 32
+  gpus: 1

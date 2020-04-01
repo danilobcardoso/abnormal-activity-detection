@@ -32,8 +32,30 @@ RUN cd \tmp && \
 RUN cd \tmp && \
 	pip install torch-geometric
 
+RUN cd \tmp && \
+    git clone https://github.com/danilobcardoso/abnormal-activity-detection.git
+
 EXPOSE 8888
 
 RUN conda install notebook -y
 RUN conda install -c conda-forge pythreejs -y
+RUN conda install -c anaconda cython
+
+RUN apt-get update && \
+	apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev
+
+# Aqui é uma tentativa fake de instalação. Ela dará errado mas gerará algumas pastas necessárias para os passos seguintes
+RUN cd /tmp/abnormal-activity-detection/ && \
+    python setup.py develop; exit 0
+
+RUN mkdir -p /tmp/abnormal-activity-detection/build/lib.linux-x86_64-3.7/mmskeleton/ops/nms && \
+	mkdir -p /tmp/abnormal-activity-detection/build/temp.linux-x86_64-3.7/mmskeleton/ops/nms && \
+	cd /tmp/abnormal-activity-detection/mmskeleton/ops/nms && \
+	python setup_linux.py build && \
+	cp /tmp/abnormal-activity-detection/mmskeleton/ops/nms/build/lib.linux-x86_64-3.7/*.so /tmp/abnormal-activity-detection/build/lib.linux-x86_64-3.7/mmskeleton/ops/nms && \
+	cp /tmp/abnormal-activity-detection/mmskeleton/ops/nms/build/temp.linux-x86_64-3.7/*.o /tmp/abnormal-activity-detection/build/temp.linux-x86_64-3.7/mmskeleton/ops/nms
+
+RUN cd /tmp/abnormal-activity-detection/ && \
+    python setup.py develop && \
+	python setup.py develop --mmdet
 

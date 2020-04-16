@@ -1,5 +1,5 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
-
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+     
 RUN echo "Installing dependencies..." && \
 	apt-get -y --no-install-recommends update && \
 	apt-get -y --no-install-recommends upgrade && \
@@ -18,7 +18,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch -y
+RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch -y
 
 ENV CPATH=/usr/local/cuda/include:$CPATH \
 	LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH \
@@ -27,7 +27,7 @@ ENV CPATH=/usr/local/cuda/include:$CPATH \
 
 
 # RUN cd \tmp && \
-RUN pip install torch-scatter==latest+cu101 torch-sparse==latest+cu101 -f https://s3.eu-central-1.amazonaws.com/pytorch-geometric.com/whl/torch-1.4.0.html && \
+RUN pip install torch-scatter==latest+cu100 torch-sparse==latest+cu100 -f https://s3.eu-central-1.amazonaws.com/pytorch-geometric.com/whl/torch-1.4.0.html && \
 	pip install torch-geometric
 
 RUN mkdir \aad-tmp && \

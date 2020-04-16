@@ -117,3 +117,7 @@ ENV/
 mmskeleton/version.py
 data
 .vscode
+container/singularity/aad.def
+container/singularity/aad.sif
+container/singularity/verlab-aad.sif
+container/verlab-aad.sif

@@ -62,7 +62,17 @@ def find_and_slice_labels(source_data_path, source_label_path, target_data_path,
         for key in filtered_info.keys():
             source_file = '{}/{}.json'.format(source_data_path, key)
             target_file = '{}/{}.json'.format(target_data_path, key)
-            copyfile(source_file, target_file)
+            with open(source_file) as video_input_file:
+                video_input = json.load(video_input_file)
+                label = video_input['label']
+                index = selected_labels.index(label)
+                video_input['label_index'] = index
+                with open(target_file, 'w') as video_output_file:
+                    json.dump(video_input, video_output_file, indent=3)
+
+
+            # copyfile(source_file, target_file)
+
 
 
 def process_count_labels(arg):
@@ -93,6 +103,5 @@ if __name__ == '__main__':
         process_count_labels(args)
     elif args.operation == 'slice_labels':
         process_slice_labels(args)
-        print('Im a filter')
     else:
         print('Im nothing')
